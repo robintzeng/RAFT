@@ -2,7 +2,8 @@
 *.egg-info
 dist
 datasets
-pytorch_env
+env
 models
 build
 correlation.egg-info
+
