@@ -6,4 +6,5 @@ env
 models
 build
 correlation.egg-info
+output_img
 

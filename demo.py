@@ -23,7 +23,7 @@ def load_image(imfile):
     return img[None].to(DEVICE)
 
 
-def viz(img, flo):
+def viz(img, flo,i):
     img = img[0].permute(1,2,0).cpu().numpy()
     flo = flo[0].permute(1,2,0).cpu().numpy()
     
@@ -35,9 +35,9 @@ def viz(img, flo):
     # plt.imshow(img_flo / 255.0)
     # plt.show()
 
-    cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
-    cv2.waitKey()
-
+    #cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
+    #cv2.waitKey()
+    cv2.imwrite('output_img/image'+str(i)+".jpg",img_flo[:, :, [2,1,0]])
 
 def demo(args):
     model = torch.nn.DataParallel(RAFT(args))
@@ -50,8 +50,9 @@ def demo(args):
     with torch.no_grad():
         images = glob.glob(os.path.join(args.path, '*.png')) + \
                  glob.glob(os.path.join(args.path, '*.jpg'))
-        
+        #print(images)
         images = sorted(images)
+        i = 0
         for imfile1, imfile2 in zip(images[:-1], images[1:]):
             image1 = load_image(imfile1)
             image2 = load_image(imfile2)
@@ -59,8 +60,9 @@ def demo(args):
             padder = InputPadder(image1.shape)
             image1, image2 = padder.pad(image1, image2)
 
-            flow_low, flow_up = model(image1, image2, iters=20, test_mode=True)
-            viz(image1, flow_up)
+            flow_low, flow_up = model(image1, image2, iters=10, test_mode=True)
+            viz(image1, flow_up,i)
+            i = i +1 
 
 
 if __name__ == '__main__':
