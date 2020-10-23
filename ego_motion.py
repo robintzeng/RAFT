@@ -20,6 +20,7 @@ def match_keypoints(desc_1, desc_2, ratio=0.5):
     if m.distance < ratio*n.distance:
         matches.append(m)
   return matches
+
 def geometricDistance(pt1,pt2, h):
 
     p1 = np.array([pt1[0], pt1[1],1])
@@ -31,20 +32,7 @@ def geometricDistance(pt1,pt2, h):
 
     return  np.linalg.norm(est1-p2)
 
-if __name__ == "__main__":
-    img_folder = glob.glob("datasets/DAVIS/JPEGImages/480p/*/")
-    mask_folder = glob.glob("datasets/DAVIS/Annotations/480p/*/")
-    
-    img_folder = sorted(img_folder)
-    mask_folder = sorted(mask_folder)
-    
-    #img_folder = img_folder[0:2]
-    #mask_folder = mask_folder[0:2]
-
-    # testing
-    #img_folder = ['datasets/DAVIS/JPEGImages/480p/bear/']
-    #mask_folder= ["datasets/DAVIS/Annotations/480p/bear/"]
-    
+def warp_images(img_folder,mask_folder):
     for (path,mask) in tqdm(zip(img_folder,mask_folder)):
         images = glob.glob(os.path.join(path, '*.png')) + \
                         glob.glob(os.path.join(path, '*.jpg'))
@@ -56,11 +44,9 @@ if __name__ == "__main__":
         images = sorted(images)
         mask = sorted(masks)
         
-        
-
         folder = 'warp_img/'+path.split('/')[-2]
         print(path.split('/')[-2])
-        #print(images)
+        
         for i, (imfile1, imfile2, mask1,mask2) in enumerate(zip(images[:-1], images[1:], masks[:-1],mask[1:])):
             #print(i)
             img1 = cv2.imread(imfile1)
@@ -68,7 +54,7 @@ if __name__ == "__main__":
             mask1 = cv2.imread(mask1,0)
             mask2 = cv2.imread(mask2,0)
             
-            rows,cols,ch = img1.shape
+            rows,cols,_ = img1.shape
             
             object_mask1 = np.where(mask1==0,mask1,1)
             object_mask2 = np.where(mask2==0,mask2,1)
@@ -194,4 +180,20 @@ if __name__ == "__main__":
 
             with open(folder + '/homography.npy', 'wb') as f:
                 np.save(f,H)
+
+if __name__ == "__main__":
+    img_folder = glob.glob("datasets/DAVIS/JPEGImages/480p/*/")
+    mask_folder = glob.glob("datasets/DAVIS/Annotations/480p/*/")
+    
+    img_folder = sorted(img_folder)
+    mask_folder = sorted(mask_folder)
+    
+    #img_folder = img_folder[0:2]
+    #mask_folder = mask_folder[0:2]
+
+    # testing
+    #img_folder = ['datasets/DAVIS/JPEGImages/480p/bear/']
+    #mask_folder= ["datasets/DAVIS/Annotations/480p/bear/"]
+    warp_images(img_folder,mask_folder)
+    
         

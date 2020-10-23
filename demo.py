@@ -39,8 +39,13 @@ def viz(img, flo,i):
     #cv2.waitKey()
 
     ## Instead of showing the img , we write it out
-    cv2.imwrite('output_img/image'+str(i)+".jpg",img_flo[:, :, [2,1,0]])
-
+    folder = "output_img/demo"
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+    if i < 10:
+        cv2.imwrite('output_img/demo/0'+str(i)+".jpg",img_flo[:, :, [2,1,0]])
+    else:
+        cv2.imwrite('output_img/demo/'+str(i)+".jpg",img_flo[:, :, [2,1,0]])
 def demo(args):
     model = torch.nn.DataParallel(RAFT(args))
     model.load_state_dict(torch.load(args.model))
@@ -65,7 +70,6 @@ def demo(args):
             flow_low, flow_up = model(image1, image2, iters=10, test_mode=True)
             viz(image1, flow_up,i)
             i = i +1 
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

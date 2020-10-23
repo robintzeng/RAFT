@@ -2,7 +2,9 @@
 ###  demo.py
 * Calculate the dense optical flow between two input images.
 * Except changing the output from imshow to imwrite, the code is the same as the RAFT algorithm.
-
+```Shell
+python demo.py --model=models/raft-sintel.pth --path="path to davis image folder"
+```
 ### extract_flow.py
 * Extract the optical flow images from the given folder.
 * Do some optical flow related calculation
@@ -18,11 +20,10 @@ def flow_separate(img,mask,flo,i,folder,bin_size):
 def plt_his(obj_angle,back_angle,obj_gradient,back_gradient,his_file_name,folder,bin_size):
 # do some easy calculation and output the histogram
 ```
-
 ### ego motion.py
-
+* calculate the homography of two imgs, warp imgs and our put 
 ### render_video.py
-* 
+* render the videos from the img folder
 
 
 

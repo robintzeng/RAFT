@@ -174,7 +174,6 @@ def demo(args):
                 flow_low, flow_up = model(image1, image2, iters=10, test_mode=True)
                 #viz(image1, flow_up,i)
                 obj_angle,back_angle,obj_gradient,back_gradient = flow_separate(image1,mask,flow_up,i,folder_name,bin_size=args.bin_size)
-                
                 global_obj_angle = np.append(global_obj_angle,obj_angle)
                 global_back_angle = np.append(global_back_angle,back_angle)
                 global_obj_gradient = np.append(global_obj_gradient,obj_gradient)
@@ -219,11 +218,15 @@ if __name__ == '__main__':
 
     args.model = "models/raft-sintel.pth"   
     args.bin_size = np.pi/32
-    
+    args.mask = False
+
+
     img_folder = glob.glob("datasets/DAVIS/JPEGImages/480p/*/")
     mask_folder = glob.glob("datasets/DAVIS/Annotations/480p/*/")
     img_folder = sorted(img_folder)
     mask_folder = sorted(mask_folder)
+    
+
     
     ##testing 
     #img_folder = img_folder[74:76]
