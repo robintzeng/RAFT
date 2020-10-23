@@ -1,5 +1,6 @@
 *.pyc
 *.egg-info
+*.avi
 dist
 datasets
 env
@@ -7,4 +8,6 @@ models
 build
 correlation.egg-info
 output_img
-
+bear_test
+bear_mask
+warp_img

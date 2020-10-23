@@ -37,6 +37,8 @@ def viz(img, flo,i):
 
     #cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
     #cv2.waitKey()
+
+    ## Instead of showing the img , we write it out
     cv2.imwrite('output_img/image'+str(i)+".jpg",img_flo[:, :, [2,1,0]])
 
 def demo(args):

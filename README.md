@@ -1,3 +1,31 @@
+# cbiv-curation
+###  demo.py
+* Calculate the dense optical flow between two input images.
+* Except changing the output from imshow to imwrite, the code is the same as the RAFT algorithm.
+
+### extract_flow.py
+* Extract the optical flow images from the given folder.
+* Do some optical flow related calculation
+
+```Python 
+def demo(args):
+# Main process 
+# load the data from the folders and put it into model to generate the optical flows
+# call flow_his to do statistic things for optical flows.
+# save the overall data
+def flow_separate(img,mask,flo,i,folder,bin_size):
+# separate the flow into obj flow and the background flow 
+def plt_his(obj_angle,back_angle,obj_gradient,back_gradient,his_file_name,folder,bin_size):
+# do some easy calculation and output the histogram
+```
+
+### ego motion.py
+
+### render_video.py
+* 
+
+
+
 # RAFT
 This repository contains the source code for our paper:
 
@@ -17,6 +45,11 @@ conda install matplotlib
 conda install tensorboard
 conda install scipy
 conda install opencv
+```
+
+## Test for DAVIS Dataset
+```Shell
+python demo.py --model=models/raft-sintel.pth --path="path to davis image folder"
 ```
 
 ## Demos
