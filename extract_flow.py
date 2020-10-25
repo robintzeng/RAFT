@@ -18,6 +18,7 @@ from utils import flow_viz
 from utils.utils import InputPadder
 
 
+# The mask is aligned to the img, but consective imgs are not aligned in DAVIS
 
 DEVICE = 'cuda'
 

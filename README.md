@@ -2,9 +2,15 @@
 ###  demo.py
 * Calculate the dense optical flow between two input images.
 * Except changing the output from imshow to imwrite, the code is the same as the RAFT algorithm.
+Pretrained models can be downloaded by running
+```Shell
+./download_models.sh
+```
 ```Shell
 python demo.py --model=models/raft-sintel.pth --path="path to davis image folder"
 ```
+
+
 ### extract_flow.py
 * Extract the optical flow images from the given folder.
 * Do some optical flow related calculation
@@ -15,13 +21,31 @@ def demo(args):
 # load the data from the folders and put it into model to generate the optical flows
 # call flow_his to do statistic things for optical flows.
 # save the overall data
+
 def flow_separate(img,mask,flo,i,folder,bin_size):
 # separate the flow into obj flow and the background flow 
+
 def plt_his(obj_angle,back_angle,obj_gradient,back_gradient,his_file_name,folder,bin_size):
 # do some easy calculation and output the histogram
 ```
 ### ego motion.py
-* calculate the homography of two imgs, warp imgs and our put 
+Extract and match the keypoints. Then
+calculate the Affine transform of two imgs, warp imgs and output
+```Python
+def get_orb_features(img):
+# extract keypoints and descriptors
+
+def match_keypoints(desc_1, desc_2, ratio=0.75):
+# match the descriptors by Brute force matcher
+
+def warp_images(img_folder,mask_folder):
+# input the img_folder and mask_folder we want to use
+# warp the images by warpafine and output the imgs
+# if we can not find enough keypoints to generate the affine matrix 
+# we are going to output a specific affine matrix 777*np.ones(2,3)
+``` 
+
+
 ### render_video.py
 * render the videos from the img folder
 
